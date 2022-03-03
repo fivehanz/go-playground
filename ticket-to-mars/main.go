@@ -8,6 +8,8 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
+	"strconv"
 )
 
 const distanceToMars int = 62100000      // km
@@ -40,8 +42,8 @@ func getRandomTicketType() string {
 	}
 }
 
-func getRandomPrice() int {
-	return rand.Intn(1+priceIntervals[1]-priceIntervals[0]) + priceIntervals[0]
+func getTicketPrice(speed int) int {
+	return speed + priceIntervals[1] - speedIntervals[1]
 }
 
 func getRandomSpeed() int {
@@ -57,7 +59,7 @@ func generateTickets(num int) {
 	for i := 0; i < num; i++ {
 		spaceline := getRandomSpaceLine()
 		speed := getRandomSpeed()
-		price := getRandomPrice()
+		price := getTicketPrice(speed)
 		ticketType := getRandomTicketType()
 
 		fmt.Println(createTicket(spaceline, speed, price, ticketType))
@@ -65,7 +67,12 @@ func generateTickets(num int) {
 }
 
 func main() {
-	fmt.Printf("%-20v %-4v %-10v %4v\n", "Spaceline", "Days", "Trip type", "Price")
-	fmt.Println("============================================")
-	generateTickets(20)
+	N, err := strconv.Atoi(os.Args[1])
+	if err == nil {
+		fmt.Printf("%-20v %-4v %-10v %4v\n", "Spaceline", "Days", "Trip type", "Price")
+		fmt.Println("============================================")
+		generateTickets(N)
+	} else {
+		fmt.Println(err)
+	}
 }
