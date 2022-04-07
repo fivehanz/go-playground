@@ -134,7 +134,7 @@ func main() {
 			fmt.Printf("Decrypted Text: %v\n", text_dec)
 		} else {
 			str := os.Args[2]
-			fmt.Printf("Key: %v\n Text: %v\n\n", key, str)
+			fmt.Printf("Key: %v\nText: %v\n\n", key, str)
 
 			text_enc := encrypt(str, key)
 			fmt.Printf("Encrypted Text: %v\n", text_enc)
